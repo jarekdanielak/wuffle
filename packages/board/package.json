@@ -17,6 +17,8 @@
     "rollup": "^4.52.5",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-css-only": "^4.5.5",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^3.0.0",
     "rollup-plugin-string": "^3.0.0",
     "rollup-plugin-svelte": "^7.2.3",
     "sass": "^1.77.4",
@@ -37,6 +39,7 @@
     "build:css": "sass --load-path=../../node_modules src/style/global.scss:../app/public/global.css",
     "build:css:prod": "npm run build:css -- --style compressed",
     "build:css:watch": "npm run build:css -- -w",
-    "dev": "run-s build:watch"
+    "dev": "run-p build:watch serve",
+    "serve": "node demo-server.js"
   }
 }

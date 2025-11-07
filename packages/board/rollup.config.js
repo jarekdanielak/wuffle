@@ -9,6 +9,9 @@ const copy = require('rollup-plugin-copy');
 const css = require('rollup-plugin-css-only');
 const svelte = require('rollup-plugin-svelte');
 
+const serve = require('rollup-plugin-serve');
+const livereload = require('rollup-plugin-livereload');
+
 const { string } = require('rollup-plugin-string');
 
 const svelteConfig = require('./svelte.config');
@@ -59,7 +62,22 @@ module.exports = [
       commonjs(),
 
       // minify in production
-      production && terser()
+      production && terser(),
+
+      // dev server in development (serves static files on port 3001)
+      !production && serve({
+        contentBase: distDirectory,
+        host: 'localhost',
+        port: 3001,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      }),
+
+      // livereload in development
+      !production && livereload({
+        watch: distDirectory
+      })
     ],
     watch: {
       clearScreen: false
